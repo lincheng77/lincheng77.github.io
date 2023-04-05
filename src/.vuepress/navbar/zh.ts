@@ -55,8 +55,9 @@ export const zhNavbar = navbar([
         prefix: "docker/",
         children: [
          
-          { text: "Docker - Overview.md", icon: "edit", link: "Docker - Overview.md" },
-          { text: "虚拟化技术 - Docker Vs. 虚拟机", icon: "edit", link: "虚拟化技术 - Docker Vs. 虚拟机" },
+          { text: "Docker基础 - Overview", icon: "edit", link: "Docker基础 - Overview" },
+          { text: "Docker基础 - Docker Vs. 虚拟机", icon: "edit", link: "Docker基础 - Docker Vs. 虚拟机" },
+          { text: "Docker基础 - 入门基础和Hello World", icon: "edit", link: "Docker基础 - 入门基础和Hello World" },
           ],
       },
       ],
