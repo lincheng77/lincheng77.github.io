@@ -18,7 +18,7 @@ Docker包括三个基本概念：
 - **容器（Container）**：镜像和容器的关系，就像是面向对象设计中的类和实例一样，1镜像是静态的定义，容器是镜像运行时的实体，容器可以被<u>创建</u>、<u>启动</u>、<u>停止</u>、<u>删除</u>、<u>暂停</u>等。
 - **仓库（Repository）**：仓库是用来存放镜像的空间（例如Maven仓库，在本地找不到以来就会去远程仓库找）。
 
-![img](http://image.edkso.cn/blog/docker-x-1.png)
+![](http://image.edkso.cn/blog/docker-x-1.png)
 
 ## Docker安装
 
@@ -82,7 +82,7 @@ sudo systemctl start docker
 systemctl status docker
 ```
 
-![image-20230406174221906](http://image.edkso.cn/blog/image-20230406174221906.png)
+![](http://image.edkso.cn/blog/image-20230406174221906.png)
 
 ## 仓库配置
 
@@ -138,7 +138,7 @@ hello-world   latest    feb5d9fea6a5   18 months ago   13.3kB
 
 运行hello-world这个镜像
 
-![image-20230406185703200](http://image.edkso.cn/image-20230406185703200.png)
+![](http://image.edkso.cn/image-20230406185703200.png)
 
 > 注意, 如果你在没有镜像的时候，直接`docker run hello-world`也是可以的；它会先检查本地是否有这个镜像，没有的话会先从指定仓库中拉取。
 
@@ -150,7 +150,7 @@ hello-world   latest    feb5d9fea6a5   18 months ago   13.3kB
 
 Docker 允许你在容器内运行应用程序， 使用 docker run 命令来在容器内运行一个应用程序。这里同样是个Hello World，不同在于它是在容器内部运行的。
 
-![image-20230406190617353](http://image.edkso.cn/blog/image-20230406190617353.png)
+![](http://image.edkso.cn/blog/image-20230406190617353.png)
 
 **命令参数解释：**
 
@@ -167,7 +167,7 @@ Docker 允许你在容器内运行应用程序， 使用 docker run 命令来在
 
 下面是一个在ubuntu容器中交互的例子：
 
-![image-20230406191159347](http://image.edkso.cn/blog/image-20230406191159347.png)
+![](http://image.edkso.cn/blog/image-20230406191159347.png)
 
 **命令参数解释：**
 
