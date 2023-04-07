@@ -10,7 +10,7 @@
 
 **Docker 资源**
 
-- Docker 官方主页: [https://www.docker.com](https://www.docker.com)
+- Docker 官方主页: https://www.docker.com
 - Docker 官方博客: https://blog.docker.com
 - Docker 官方文档: https://docs.docker.com/
 - Docker Store: https://store.docker.com
