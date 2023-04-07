@@ -182,25 +182,25 @@ Docker 允许你在容器内运行应用程序， 使用 docker run 命令来在
 
 我们可以看到没有容器实例
 
-![image-20230406192744363](http://image.edkso.cn/blog/image-20230406192744363.png)
+![](http://image.edkso.cn/blog/image-20230406192744363.png)
 
 我们运行下面命令：
 
-![image-20230406192900195](C:\Users\14980\AppData\Roaming\Typora\typora-user-images\image-20230406192900195.png)
+![](http://image.edkso.cn/blog/image-20230406192900195.png)
 
 仅仅输出了一个长长的无规律的字符串，这个字符串叫做**容得ID**，对每个容器来说都是唯一的，我们可以通过**容器ID**来查看对应的容器发生了什么
 
 我们再次输入`docker ps`命令可以看到有在运行的容器实例
 
-![image-20230406193138048](C:\Users\14980\AppData\Roaming\Typora\typora-user-images\image-20230406193138048.png)
+![](http://image.edkso.cn/blog/image-20230406193138048.png)
 
 然后我们再输入**`docker logs ce148270abdc`**来查看容器运行日志（ce148270abdc注意替换为自己对应的容器ID）
 
-<img src="C:\Users\14980\AppData\Roaming\Typora\typora-user-images\image-20230406193520885.png" alt="image-20230406193520885" style="zoom:67%;" />
+<img src="http://image.edkso.cn/blog/image-20230406193520885.png" alt="image-20230406193520885" style="zoom:67%;" />
 
 最后我们看下，如何关闭后台实例
 
-![image-20230406193634215](C:\Users\14980\AppData\Roaming\Typora\typora-user-images\image-20230406193634215.png)
+![](http://image.edkso.cn/blog/image-20230406193634215.png)
 
 **以上命令参数解释：**
 
