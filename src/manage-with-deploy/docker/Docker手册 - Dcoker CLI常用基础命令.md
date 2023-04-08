@@ -18,15 +18,18 @@
 |                       |               |                |
 |                       |               |                |
 
-| 命令         | 说明               |
-| ------------ | ------------------ |
-|              |                    |
-|              |                    |
-| `docker rmi` | 删除一个或多个镜像 |
-|              |                    |
-|              |                    |
-|              |                    |
-|              |                    |
-|              |                    |
-|              |                    |
+| 命令                                                         | 说明                                 |
+| ------------------------------------------------------------ | ------------------------------------ |
+|                                                              |                                      |
+| [docker build](https://docs.docker.com/engine/reference/commandline/build/) | 从Dockerfile文件构建一个镜像         |
+| [docker commit](https://docs.docker.com/engine/reference/commandline/commit/) | 从一个可能修改过的容器创建一个新镜像 |
+| [docker rmi](https://docs.docker.com/engine/reference/commandline/rmi/) | 删除一个或多个镜像                   |
+|                                                              |                                      |
+|                                                              |                                      |
+| [docker ps](https://docs.docker.com/engine/reference/commandline/ps/) | 查看容器列表                         |
+|                                                              |                                      |
+|                                                              |                                      |
+|                                                              |                                      |
+
+
 

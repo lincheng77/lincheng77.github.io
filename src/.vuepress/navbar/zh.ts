@@ -54,7 +54,8 @@ export const zhNavbar = navbar([
         icon: "edit",
         prefix: "docker/",
         children: [
-         
+          { text: "Docker手册 - Docker CLI运行相关命令", icon: "edit", link: "Docker手册 - Docker CLI运行相关命令" },
+          { text: "Docker手册 - Dcoker CLI常用基础命令", icon: "edit", link: "Docker手册 - Dcoker CLI常用基础命令" },
           { text: "Docker基础 - Overview", icon: "edit", link: "Docker基础 - Overview" },
           { text: "Docker基础 - Docker Vs. 虚拟机", icon: "edit", link: "Docker基础 - Docker Vs. 虚拟机" },
           { text: "Docker基础 - 安装和入门基础", icon: "edit", link: "Docker基础 - 安装和入门基础" },

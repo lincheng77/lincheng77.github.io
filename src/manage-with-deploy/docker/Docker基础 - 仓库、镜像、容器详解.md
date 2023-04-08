@@ -1,5 +1,6 @@
 # Docker基础 - 仓库、镜像、容器详解
 
+
 > 本文将从仓库，镜像，容器三个方面讲解常用的docker命令和使用等，对于开发而言这块使用的非常频繁，需要重点掌握。
 
 ## 仓库、镜像、容器的关系
@@ -149,6 +150,55 @@ Deleted: sha256:e07ee1baac5fae6a26f30cabfe54a36d3402f96afda318fe0a96cec4ca393359
 | `rm`  | 删除容器实例 |
 | `rmi` |   删除镜像   |
 
-## 更新镜像
+## 创建镜像
 
-> 针对上述ubuntu的镜像更新，我们能否在里面装一些软件，然后重新生成一个镜像呢
+> 在容器中，我们可以更新一下容器中的一些软件，下面我们运行一起ubuntu容器实例，然后使用`apt-get update`更新软件
+
+```shell
+[root@lincheng77 ~]# docker run -it ubuntu:latest
+root@ffeda95cd8a7:/# apt-get update
+Get:1 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [110 kB]              
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [108 kB]
+Get:5 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [908 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:8 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [909 kB]                                 
+Get:9 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]                                          
+Get:10 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [23.2 kB]                             
+Get:11 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [914 kB]                                    
+Get:12 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]                                        
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [963 kB]                                
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [28.7 kB]                               
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [1251 kB]                                     
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1149 kB]                                 
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [49.0 kB]                                   
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [23.3 kB]                               
+Fetched 26.5 MB in 38s (702 kB/s)                                                                                       
+Reading package lists... Done
+```
+
+我们通过`docker commit`根据刚才运行的ubuntu容器实例来创建一个新镜像
+
+```shell
+[root@lincheng77 ~]# docker commit -m="update test" -a="lincheng77" ffeda95cd8a7 lincheng77/ubuntu:v1.0.1
+sha256:c88cb822f7f6f8bb7e8b2cd2ab82689efa638681f0b90e80b9a1feb5da78f9e3
+```
+
+可以看到新的镜像创建成功了
+
+```shell
+[root@lincheng77 ~]# docker images
+REPOSITORY                                             TAG       IMAGE ID       CREATED         SIZE
+lincheng77/ubuntu                                      v1.0.1    c88cb822f7f6   9 seconds ago   121MB
+rabbitmq                                               latest    9492b0e4eea5   7 days ago      246MB
+ubuntu                                                 latest    08d22c0ceb15   4 weeks ago     77.8MB
+```
+
+### 构建镜像
+
+> 刚才是把一个可能修改过的容器实例提交（创建）为一个新的镜像，我也也可以用`docker build` 命令通过Dockerfile文件构建一个镜像（[Dockerfile 官方文档](https://docs.docker.com/engine/reference/builder/)）
+
+我们来创建一个Dcokerfile文件
+
