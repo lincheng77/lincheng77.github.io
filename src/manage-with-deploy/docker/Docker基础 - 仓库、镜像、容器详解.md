@@ -1,3 +1,5 @@
+
+
 # Docker基础 - 仓库、镜像、容器详解
 
 
@@ -152,7 +154,7 @@ Deleted: sha256:e07ee1baac5fae6a26f30cabfe54a36d3402f96afda318fe0a96cec4ca393359
 
 ## 创建镜像
 
-> 在容器中，我们可以更新一下容器中的一些软件，下面我们运行一起ubuntu容器实例，然后使用`apt-get update`更新软件
+> 在容器中，我们可以更新一下容器中的一些软件，下面我们运行一个ubuntu容器实例，然后使用`apt-get update`更新软件
 
 ```shell
 [root@lincheng77 ~]# docker run -it ubuntu:latest
@@ -196,9 +198,221 @@ rabbitmq                                               latest    9492b0e4eea5   
 ubuntu                                                 latest    08d22c0ceb15   4 weeks ago     77.8MB
 ```
 
-### 构建镜像
+### 构建镜像☆
 
 > 刚才是把一个可能修改过的容器实例提交（创建）为一个新的镜像，我也也可以用`docker build` 命令通过Dockerfile文件构建一个镜像（[Dockerfile 官方文档](https://docs.docker.com/engine/reference/builder/)）
 
 我们来创建一个Dcokerfile文件
+
+```shell
+FROM lincheng77/ubuntu:v1.0.1
+MAINTAINER      lincheng77@163.com
+
+RUN     /bin/echo 'root:123456' |chpasswd
+RUN     useradd lincheng77
+RUN     /bin/echo 'lincheng77:123456' |chpasswd
+RUN     /bin/echo -e "LANG=\"en_US.UTF-8\"" > /etc/default/local
+EXPOSE 22
+EXPOSE 80
+```
+
+> Dockerfile文件参数说明：
+>
+> | 参数       | 说明                     |
+> | ---------- | ------------------------ |
+> | FROM       | 构建镜像基于哪个镜像     |
+> | MAINTAINER | 镜像维护者姓名或邮箱地址 |
+> | RUN        | 在 docker build 时运行   |
+> | EXPOSE     | 声明端口                 |
+
+然后我们通过`docker build` 命令通过Dockerfile文件构建一个镜像
+
+```shell
+[root@lincheng77 ~]# docker build -t lincheng77/ubuntu:v2.0.1 .
+[+] Building 0.2s (9/9) FINISHED                                                                                         
+ => [internal] load .dockerignore                                                                                   0.0s
+ => => transferring context: 2B                                                                                     0.0s
+ => [internal] load build definition from Dockerfile                                                                0.0s
+ => => transferring dockerfile: 308B                                                                                0.0s
+ => [internal] load metadata for docker.io/lincheng77/ubuntu:v1.0.1                                                 0.0s
+ => [1/5] FROM docker.io/lincheng77/ubuntu:v1.0.1                                                                   0.0s
+ => CACHED [2/5] RUN /BIN/ECHO 'root:123456' |chpasswd                                                              0.0s
+ => CACHED [3/5] RUN USERADD lincheng77                                                                             0.0s
+ => CACHED [4/5] RUN /BIN/ECHO 'lincheng77:123456' |chpasswd                                                        0.0s
+ => [5/5] RUN /BIN/ECHO -e "LANG="en_US.UTF-8"" > /etc/default/local                                                0.2s
+ => exporting to image                                                                                              0.0s
+ => => exporting layers                                                                                             0.0s
+ => => writing image sha256:f6b24dd212b918484cf75c481e259d64691984bec7b74c663429bb26cb630e7b                        0.0s
+ => => naming to docker.io/lincheng77/ubuntu:v2.0.1                                                                 0.0s
+```
+
+> `docker build`参数说明：
+>
+> | 参数 | 说明                                                   |
+> | ---- | ------------------------------------------------------ |
+> | `-t` | 指定要创建的目标镜像名                                 |
+> | `.`  | Dockerfile 文件所在目录，可以指定Dockerfile 的绝对路径 |
+
+```shell
+[root@lincheng77 ~]# docker images
+REPOSITORY                                             TAG       IMAGE ID       CREATED          SIZE
+lincheng77/ubuntu                                      v2.0.1    f6b24dd212b9   27 seconds ago   121MB
+lincheng77/ubuntu                                      v1.0.1    c88cb822f7f6   4 hours ago      121MB
+rabbitmq                                               latest    9492b0e4eea5   7 days ago       246MB
+ubuntu                                                 latest    08d22c0ceb15   4 weeks ago      77.8MB
+```
+
+可以看到构建的镜像已经在列表中了，镜像id为f6b24dd212b9，我们使用新的镜像创建容器，可以看到新的镜像已经包含我们创建的lincheng77用户了
+
+```shell
+[root@lincheng77 ~]# docker run -it lincheng77/ubuntu:v2.0.1
+root@b07e96c63d53:/# id lincheng77
+uid=1000(lincheng77) gid=1000(lincheng77) groups=1000(lincheng77)
+root@b07e96c63d53:/# exit 
+exit
+```
+
+### 镜像标签
+
+> 我们可以使用 `docker tag` 命令，为镜像添加一个新的标签（通常用不同的标签区分不同的版本）
+>
+> [docker tag 官方文档](https://docs.docker.com/engine/reference/commandline/tag/)
+
+我们通过`docker tag` 命令和`docker images`命令 可以确认已经给生成了一个标签为v3.0.1的新镜像
+
+```shell
+[root@lincheng77 ~]# docker tag 8a656bbf2e7a lincheng77/ubuntu:v3.0.1
+[root@lincheng77 ~]# images
+-bash: images: 未找到命令
+[root@lincheng77 ~]# docker images
+REPOSITORY                                             TAG       IMAGE ID       CREATED        SIZE
+lincheng77/ubuntu                                      v2.0.1    8a656bbf2e7a   13 hours ago   121MB
+lincheng77/ubuntu                                      v3.0.1    8a656bbf2e7a   13 hours ago   121MB
+lincheng77/ubuntu                                      v1.0.1    c88cb822f7f6   17 hours ago   121MB
+rabbitmq                                               latest    9492b0e4eea5   8 days ago     246MB
+ubuntu                                                 latest    08d22c0ceb15   4 weeks ago    77.8MB
+```
+
+### 镜像导入和导出
+
+> [docker save 官方文档](https://docs.docker.com/engine/reference/commandline/save/)
+>
+> [docker load 官方文档](https://docs.docker.com/engine/reference/commandline/load/)
+
+#### 镜像导出
+
+```shell
+[root@lincheng77 ~]# docker images
+REPOSITORY                                             TAG       IMAGE ID       CREATED        SIZE
+lincheng77/ubuntu                                      v2.0.1    8a656bbf2e7a   13 hours ago   121MB
+[root@lincheng77 ~]# docker save > lincheng77/ubuntu:v3.0.1.tar 8a656bbf2e7a
+-bash: lincheng77/ubuntu:v3.0.1.tar: 没有那个文件或目录
+[root@lincheng77 ~]# docker save > lincheng77-ubuntu:v3.0.1.tar 8a656bbf2e7a
+[root@lincheng77 ~]# ll | grep lincheng
+-rw-r--r--  1 root root 123516928 4月   9 15:12 lincheng77-ubuntu:v3.0.1.tar
+```
+
+#### 镜像导入
+
+```shell
+docker load < lincheng77-ubuntu:v3.0.1.tar
+```
+
+## Docker容器
+
+### 容器启动
+
+> 参考：
+>
+> [Docker run reference 官网](https://docs.docker.com/engine/reference/run/)
+>
+> Docker手册 - Docker CLI运行相关命令
+
+前面文章运行多次了，这里不再介绍各个参数含义了
+
+```shell
+[root@lincheng77 ~]# docker run -it lincheng77/ubuntu:v2.0.1
+root@a8e2192b852f:/# 
+```
+
+### 容器查看
+
+`-a`表示所有的，默认是运行中的容器
+
+```shell
+[root@lincheng77 ~]# docker ps -a
+CONTAINER ID   IMAGE                                                         COMMAND                   CREATED              STATUS                        PORTS                                       NAMES
+a8e2192b852f   lincheng77/ubuntu:v2.0.1                                      "/bin/bash"               About a minute ago   Exited (127) 14 seconds ago                                               hopeful_fermi
+b07e96c63d53   lincheng77/ubuntu:v2.0.1                                      "/bin/bash"               2 hours ago          Exited (0) 2 hours ago                                                    nice_newton
+ffeda95cd8a7   ubuntu:latest                                                 "/bin/bash"               18 hours ago         Exited (127) 18 hours ago                                                 gallant_meitner
+```
+
+### 容器再启动
+
+> 我们可以看到a8e2192b852f已经停止了（STATUS 状态为 Exited (127) 14 seconds ago），我们如何再次启动呢
+
+```shell
+[root@lincheng77 ~]# docker start a8e2192b852f
+a8e2192b852f
+[root@lincheng77 ~]# docker ps
+CONTAINER ID   IMAGE                      COMMAND       CREATED          STATUS         PORTS            NAMES
+a8e2192b852f   lincheng77/ubuntu:v2.0.1   "/bin/bash"   15 minutes ago   Up 6 seconds   22/tcp, 80/tcp   hopeful_fermi
+```
+
+### 容器停止和重启
+
+```shell
+[root@lincheng77 ~]# docker stop a8e2192b852f
+a8e2192b852f
+[root@lincheng77 ~]# docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+[root@lincheng77 ~]# docker start a8e2192b852f
+a8e2192b852f
+[root@lincheng77 ~]# docker restart a8e2192b852f
+a8e2192b852f
+[root@lincheng77 ~]# docker ps
+CONTAINER ID   IMAGE                      COMMAND       CREATED          STATUS         PORTS            NAMES
+a8e2192b852f   lincheng77/ubuntu:v2.0.1   "/bin/bash"   18 minutes ago   Up 3 seconds   22/tcp, 80/tcp   hopeful_fermi
+```
+
+### 后台模式与进入
+
+```shell
+[root@lincheng77 ~]# docker ps
+CONTAINER ID   IMAGE                      COMMAND       CREATED          STATUS         PORTS            NAMES
+a8e2192b852f   lincheng77/ubuntu:v2.0.1   "/bin/bash"   18 minutes ago   Up 3 seconds   22/tcp, 80/tcp   hopeful_fermi
+[root@lincheng77 ~]# docker attach a8e2192b852f
+root@a8e2192b852f:/# echo lincheng77
+lincheng77
+root@a8e2192b852f:/# exit
+exit
+[root@lincheng77 ~]# docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+```
+
+```shell
+[root@lincheng77 ~]# docker start a8e2192b852f
+a8e2192b852f
+Execute a command in a running container
+[root@lincheng77 ~]# docker exec -it a8e2192b852f /bin/bash
+root@a8e2192b852f:/# exit
+exit
+[root@lincheng77 ~]# docker ps
+CONTAINER ID   IMAGE                      COMMAND       CREATED          STATUS          PORTS            NAMES
+a8e2192b852f   lincheng77/ubuntu:v2.0.1   "/bin/bash"   20 minutes ago   Up 54 seconds   22/tcp, 80/tcp   hopeful_fermi
+```
+
+### 容器导入和导出
+
+### 强制停止容器
+
+### 清理停止的容器
+
+### 容器别名及操作
+
+### 容器错误日志
+
+## Docker 仓库
+
+
 

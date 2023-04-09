@@ -59,6 +59,7 @@ export const zhNavbar = navbar([
           { text: "Docker基础 - Overview", icon: "edit", link: "Docker基础 - Overview" },
           { text: "Docker基础 - Docker Vs. 虚拟机", icon: "edit", link: "Docker基础 - Docker Vs. 虚拟机" },
           { text: "Docker基础 - 安装和入门基础", icon: "edit", link: "Docker基础 - 安装和入门基础" },
+          { text: "Docker基础 - Docker基础 - 仓库、镜像、容器详解", icon: "edit", link: "Docker基础 - 仓库、镜像、容器详解" },
           { text: "Docker基础 - 一个web应用实例", icon: "edit", link: "Docker基础 - 一个web应用实例" },
           ],
       },
