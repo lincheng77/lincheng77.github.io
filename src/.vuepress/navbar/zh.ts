@@ -45,6 +45,19 @@ export const zhNavbar = navbar([
     ],
   },
   {
+    text: "微服务",
+    icon: "edit",
+    prefix: "/micro-service/",
+    children: [
+      {
+        text: "Nacos",
+        icon: "code",
+        link: "nacos/",
+        activeMatch: "^/nacos/$",
+      },
+    ],
+  },
+  {
     text: "管理|部署",
     icon: "edit",
     prefix: "/manage-with-deploy/",

@@ -293,23 +293,23 @@ $$
 
 ### 顺序
 
-你可以使用 `data-fragment-index` 属性改变元素的动画顺序。
+你可以使用 `data-fragment-microService` 属性改变元素的动画顺序。
 
 不同元素可以有相同的动画顺序。
 
 - 最后显示
-<!-- .element: class="fragment" data-fragment-index="3"-->
+<!-- .element: class="fragment" data-fragment-microService="3"-->
 
 - 第二个显示
-<!-- .element: class="fragment" data-fragment-index="2"-->
+<!-- .element: class="fragment" data-fragment-microService="2"-->
 
 <!-- list break -->
 
 - 第一个显示
-<!-- .element: class="fragment" data-fragment-index="1"-->
+<!-- .element: class="fragment" data-fragment-microService="1"-->
 
 - 第二个显示
-<!-- .element: class="fragment" data-fragment-index="2"-->
+<!-- .element: class="fragment" data-fragment-microService="2"-->
 
 ---
 

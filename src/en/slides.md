@@ -297,23 +297,23 @@ Multiple fragments can be applied to the same element sequentially by wrapping i
 
 ### Order
 
-Order can be changed using the `data-fragment-index` attribute.
+Order can be changed using the `data-fragment-microService` attribute.
 
-Multiple elements can appear at the same index.
+Multiple elements can appear at the same microService.
 
 - Appears last
-<!-- .element: class="fragment" data-fragment-index="3"-->
+<!-- .element: class="fragment" data-fragment-microService="3"-->
 
 - Appears second
-<!-- .element: class="fragment" data-fragment-index="2"-->
+<!-- .element: class="fragment" data-fragment-microService="2"-->
 
 <!-- list break -->
 
 - Appears first
-<!-- .element: class="fragment" data-fragment-index="1"-->
+<!-- .element: class="fragment" data-fragment-microService="1"-->
 
 - Appears second
-<!-- .element: class="fragment" data-fragment-index="2"-->
+<!-- .element: class="fragment" data-fragment-microService="2"-->
 
 ---
 

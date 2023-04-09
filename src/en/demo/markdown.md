@@ -336,7 +336,7 @@ Donate Mr.Hope a cup of coffee. _Recommended_
 
 ::: playground#ts TS demo
 
-@file index.ts
+@file microService.ts
 
 ```ts
 const msg = "hello world";

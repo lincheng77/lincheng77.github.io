@@ -1,6 +1,6 @@
 ---
 title: Features Demo
-index: false
+microService: false
 icon: discover
 category:
   - Guide

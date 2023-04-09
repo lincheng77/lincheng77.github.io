@@ -316,7 +316,7 @@ span {
 
 ::: playground#ts TS 案例
 
-@file index.ts
+@file micro-service.ts
 
 ```ts
 const msg = "hello world";
