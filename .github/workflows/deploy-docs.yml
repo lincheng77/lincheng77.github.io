@@ -2,11 +2,14 @@
 name: 部署文档
 
 on:
+  #push触发启动工作流
   push:
     branches:
       # 确保这是你正在使用的分支名称
-      - main
-
+      - master
+  #started（手动触发启动工作流）
+  watch:
+    types: started
 jobs:
   deploy-gh-pages:
     runs-on: ubuntu-latest
