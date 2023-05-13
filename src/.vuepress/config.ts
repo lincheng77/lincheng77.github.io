@@ -2,6 +2,10 @@ import { defineUserConfig } from "vuepress";
 import theme from "./theme.js";
 
 export default defineUserConfig({
+
+  //指定 vuepress build 命令的输出目录
+  //dest: "../dist/docs",
+
   base: "/",
 
   locales: {
