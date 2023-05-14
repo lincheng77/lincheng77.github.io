@@ -1,4 +1,4 @@
-# Nacos 单机&集群部署搭建
+# Nacos 单机集群部署搭建
 
 > 本文介绍为Nacos2.2 版本配置，其他版本请注意根据情况而定
 
@@ -20,13 +20,17 @@
 
 ## Nacos配置准备
 
-这里说的配置单机模式，集群模式都要配置，为什么要配置参考我的另外一篇文章 [Nacos2.2版本Tomcat启动报错.md](Nacos2.2版本Tomcat启动报错.md) //TODO
+这里说的配置单机模式，集群模式都要配置，为什么要配置参考我的另外一篇文章 [Nacos2.2版本Tomcat启动报错.md](/micro-service/nacos/error/Nacos2.2版本Tomcat启动报错.html)
 
-`conf`目录下的`application.properties`文件
+conf目录下的application.properties文件配置：
 
-设置其中的`nacos.core.auth.plugin.nacos.token.secret.key=SecretKey012345678901234567890123456789012345678901234567890123456789`值，详情可查看[官方文档：鉴权-自定义密钥 ](https://nacos.io/zh-cn/docs/v2/guide/plugin/auth-plugin.html).
+```properties
+nacos.core.auth.plugin.nacos.token.secret.key=SecretKey012345678901234567890123456789012345678901234567890123456789
+```
 
-> 注意，文档中的默认值`SecretKey012345678901234567890123456789012345678901234567890123456789`和`VGhpc0lzTXlDdXN0b21TZWNyZXRLZXkwMTIzNDU2Nzg=`为公开默认值，可用于临时测试，实际使用时请**务必**更换为自定义的其他有效值。
+详情可查看[官方文档：鉴权-自定义密钥 ](https://nacos.io/zh-cn/docs/v2/guide/plugin/auth-plugin.html).
+
+> 注意，文档中的默认值为公开默认值，可用于临时测试，实际使用时请**务必**更换为自定义的其他有效值。
 
 ## Nacos单机模式
 
